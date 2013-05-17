@@ -856,22 +856,15 @@ void *safe_calloc(size_t n, size_t s)
 	return p;
 }
 
-#include "alloc.h"
-static allocator *String_allocator = 0;
-
 char *string_copy(const char *string, int len)
 {
-	char *p;
-	if (String_allocator == 0) {
-		String_allocator = new_allocator(0, 100);
-	}
-	p = allocate(String_allocator, len+1);
+	char *p = malloc(len+1);
+        if(!p) {
+          return NULL;
+        }
+
 	strncpy(p, string, len);
 	p[len] = 0;
 	return p;
 }
-	
-	
 
-	
-	
