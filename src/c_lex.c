@@ -88,16 +88,13 @@ identifier_t Identifier;
 char *string_copy(const char *string, int len);
 
 void
-lex_error(s)
-const char *s;
+lex_error(const char *s)
 {
 	fprintf(stderr, "Error: %s", s);
 }
 
 static const char *
-parse_hash_directive(line, le)
-const char *line;
-lex_env_t *le;
+parse_hash_directive(const char *line, lex_env_t *le)
 {
 	int lnum, nitems;
 	char name[256];
@@ -145,9 +142,7 @@ lex_env_t *le;
 
 
 const char *
-ci_translate_escape(s, p_res)
-const char *s;
-int *p_res;
+ci_translate_escape(const char *s, int *p_res)
 {
 	static const char hexdigits[] = "0123456789abcdefABCDEF";
 	const char *pos, *save_s;
@@ -208,8 +203,7 @@ int *p_res;
 #define follow(s, ch, ifyes, ifno) ((*(s) == (ch)) ? (++(s), (ifyes)) : (ifno))
 
 static const char *
-get_line(le)
-lex_env_t *le;
+get_line(lex_env_t *le)
 {
 	if (le->le_abort_parse)
 		return NULL;
@@ -221,9 +215,7 @@ lex_env_t *le;
 /*  Skip white space and comments.
  */
 static const char *
-skip_whitespace(le, line)
-lex_env_t *le;
-const char *line;
+skip_whitespace(lex_env_t *le, const char *line)
 {
 	bool read_another_line;
 	bool incomment;
@@ -283,8 +275,7 @@ const char *line;
 }
 
 static bool
-is_aggr_type_specifier(token)
-token_t token;
+is_aggr_type_specifier(token_t token)
 {
 	if (token == STRUCT 
 	||  token == UNION
@@ -294,8 +285,7 @@ token_t token;
 }
     
 static bool
-is_basic_type_specifier(token)
-token_t token;
+is_basic_type_specifier(token_t token)
 {
 	if (token == INT
 	||  token == UNSIGNED
@@ -311,8 +301,7 @@ token_t token;
 }
 
 static bool
-is_storage_class_or_qualifier(token)
-token_t token;
+is_storage_class_or_qualifier(token_t token)
 {
 	if (token == STATIC
 	||  token == EXTERN
@@ -326,8 +315,7 @@ token_t token;
 }
 
 static bool
-is_decl_specifier(token)
-token_t token;
+is_decl_specifier(token_t token)
 {
 	return is_storage_class_or_qualifier(token)
 	||     is_basic_type_specifier(token)
@@ -650,10 +638,7 @@ lex_get_token()
 }
 
 static int
-get_string(le, line, co)
-lex_env_t *le;
-const char *line;
-constant_t *co;
+get_string(lex_env_t *le, const char *line, constant_t *co)
 {
 	static const char badalloc[] =
 				"Unable to allocate memory for string constant";
@@ -728,10 +713,7 @@ constant_t *co;
 }
 
 static int
-get_float_constant(le, line, p_end, co)
-lex_env_t *le;
-const char *line, **p_end;
-constant_t *co;
+get_float_constant(lex_env_t *le, const char *line, **p_end, constant_t *co)
 {
 	double val;
 	char *end;
