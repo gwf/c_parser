@@ -1,0 +1,81 @@
+h1 {
+    color: #0066CC;
+    margin-left: 0%;
+    border-bottom: 1px dotted #333333;
+    margin-bottom: 20px
+
+}
+h2,h3 {
+    color: #0066CC;
+    margin-left: 0%
+}
+body { 
+    color: black; background: white;
+    font-family: sans-serif;
+    margin-left: 10%;
+    margin-right: 10%
+}
+pre {
+    font-weight: bold;
+    white-space: pre; 
+    font-family : "Courier New", Courier, monospace;
+    font-size: 100%;
+}
+pre.code {
+    color: Maroon;
+}
+pre.text {
+    color: black; 
+}
+pre.tty {
+    color: black; 
+}
+pre.syntax {
+    color: black; 
+}
+pre.grammar {
+    font-style: italic;
+    font-weight: normal;
+}
+var {
+    color: Yellow;
+    font-style: italic;
+}
+tt {
+    font-family : "Courier New", Courier, monospace;
+    font-size : 100%;
+    font-weight : bold;
+    white-space: pre; 
+}
+div.filecontent {
+    background-color : #99CCFF;
+}
+div.syntax {
+    background-color : #CCCCCC;
+}
+div.tty {
+}
+em {
+    font-style: italic;
+    font-weight : bold;
+}
+li {
+    list-style-type : square;
+    margin-top : 1em;
+    margin-bottom : 1em;
+}
+strong { 
+    font-weight: bold 
+}
+address {
+    color: Black;
+}
+dt {
+    color: Green;
+    font-weight: bold 
+}
+caption {
+    color: #0066CC;
+    font-weight: bold;
+    caption-side: bottom;
+}

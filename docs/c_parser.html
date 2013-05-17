@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO 8859-1">
+<link rel="stylesheet" type="text/css" href="dmstyle.css">
+<title>A C99 Parser</title>
+<meta name="Author" content="Dibyendu Majumdar">
+<meta name="Description" content="A C99 Parser">
+<meta name="Keywords" content="C C89 C99 Parser Lexer Compiler">
+</head>
+
+<body>
+<h1>A C99 Parser</h1>
+
+<h2>Introduction</h2>
+
+<p>
+The purpose of this project is to create a recursive descent parser for C99. The output from the parser should be a parse tree.
+</p>
+
+<h2>Project Status</h2>
+
+<p>
+I started the project in January 2001 - but after working for a few days I was not able to continue work on this project. I managed to create a working parser that is almost fully C99 compatible. However, the parser does not generate a parse tree yet.
+</p>
+
+<p>Since it is unlikely that I will be able to devote time to this project in the immediate future, I have decided to release the code as it is, in the hope that someone can use it and make something of it.
+</p>
+
+<h2>Licencing Terms</h2>
+<p>
+The parser code is licensed under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version.
+</p>
+
+<p>
+The lexer code is a modified version of the C lexer in the <a href="http://ups.sourceforge.net/">UPS C Debugger</a>, and is copyrighted by its author Mark Russell.
+</p>
+
+<h2>Download</h2>
+
+<p>You can checkout the source as follows:</p>
+<div class="syntax">
+<pre class="syntax">
+svn checkout http://try-catch-finally.googlecode.com/svn/trunk/cparser/ cparser
+</pre>
+</div>
+
+<h2>Installation and Usage</h2>
+
+<p>
+After extracting the source into a directory, you can run <tt>make</tt> to build an executable called c_parser. The syntax for invoking c_parser is as follows:
+</p>
+
+<div class="syntax">
+<pre class="syntax">
+c_parser [input-file]
+</pre>
+</div>
+
+<p>
+The input file must not contain pre-processer directives.
+</p>
+
+<p>
+The parser is silent by default. You can define two environment variables if you want to see the parsing process. Set LEX_DEBUG=1 to start lexer trace messages. Set DEBUG to 1,2 or 3 to generate parser trace messages.
+</p>
+
+<hr>
+Copyright &copy; 2000,2001 by Dibyendu Majumdar</a>
+</body>
+</html>
