@@ -31,7 +31,7 @@ static const char *parse_hash_directive (const char *line, lex_env_t *le);
 static const char *skip_whitespace (lex_env_t *le, const char *line);
 static int get_float_constant (lex_env_t *le, const char *line,
 					const char **p_end, constant_t *co);
-static const char *getline (lex_env_t *le);
+static const char *get_line (lex_env_t *le);
 static int get_string (lex_env_t *le, const char *line, constant_t *co);
 
 static struct {
@@ -208,7 +208,7 @@ int *p_res;
 #define follow(s, ch, ifyes, ifno) ((*(s) == (ch)) ? (++(s), (ifyes)) : (ifno))
 
 static const char *
-getline(le)
+get_line(le)
 lex_env_t *le;
 {
 	if (le->le_abort_parse)
@@ -232,7 +232,7 @@ const char *line;
 	read_another_line = FALSE;
 
 	if (line == NULL) {
-		if ((line = getline(le)) == NULL)
+		if ((line = get_line(le)) == NULL)
 			return line;
 	}
 
@@ -243,7 +243,7 @@ const char *line;
 			if (*line != '\0')
 				break;
 
-			if ((line = getline(le)) == NULL)
+			if ((line = get_line(le)) == NULL)
 				break;
 			read_another_line = TRUE;
 			if (*line == '#')
@@ -693,7 +693,7 @@ constant_t *co;
 		if (*line != '\\')
 			ch = *line;
 		else if (*++line == '\n') {
-			line = getline(le);
+			line = get_line(le);
 			ch = (line != NULL) ? *line : '\0';
 		}
 		else
