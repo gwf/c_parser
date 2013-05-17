@@ -713,7 +713,7 @@ get_string(lex_env_t *le, const char *line, constant_t *co)
 }
 
 static int
-get_float_constant(lex_env_t *le, const char *line, **p_end, constant_t *co)
+get_float_constant(lex_env_t *le, const char *line, const char **p_end, constant_t *co)
 {
 	double val;
 	char *end;
