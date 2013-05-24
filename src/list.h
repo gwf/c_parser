@@ -22,29 +22,29 @@
 #ifndef list_h
 #define list_h
 
-typedef struct link_t
-{
-	struct link_t *llink, *rlink ;
+// #include "sys/queue.h"
+
+typedef struct link_t {
+	TAILQ_ENTRY(link_t) entries;
 } link_t ;
 
-typedef struct
-{
-	link_t  lhead ;
+typedef struct list_t {
+	TAILQ_HEAD(lhead_t, link_t) lhead;
 } list_t ;
 
-void   list_init         ( list_t *list );
-void   list_append       ( list_t *list, void *link );
-void   list_prepend      ( list_t *list, void *link );
-void   list_insert_after ( list_t *list, void *anchor, void *link );
-void   list_insert_before( list_t *list, void *anchor, void *link );
-void * list_first        ( list_t *list );
-void * list_last         ( list_t *list );
-void * list_next         ( list_t *list, void *link );
-void * list_prev         ( list_t *list, void *link );
-void   list_remove       ( list_t *list, void *link );
-void   list_push         ( list_t *list, void *link );
-void * list_pop          ( list_t *list );
+#define list_init(list) TAILQ_INIT(&(list)->lhead)
+#define list_first(list) TAILQ_FIRST(&(list)->lhead)
+#define list_next(list, elem) TAILQ_NEXT(elem, entries)
+#define list_append(list, elem) TAILQ_INSERT_TAIL(&(list)->lhead, elem, entries)
+#define list_remove(list, elem) TAILQ_REMOVE(&(list)->lhead, elem, entries)
 
-#define list_push(list, link) list_append((list), (link))
+#ifdef TAILQ_PREV
+#undef TAILQ_PREV
+#endif
+
+#define TAILQ_PREV(elm, headname, field) \
+        (*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))
+
+#define list_prev(list, elem) TAILQ_PREV(elem, lhead_t, entries)
 
 #endif

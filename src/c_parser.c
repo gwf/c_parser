@@ -59,7 +59,8 @@
 #include <ctype.h>
 
 #include "c_lex.h"
-#include "list.h"
+#include "sys/queue.h"
+#include "list.h" 
 
 /***
 * Various FIRST SETS
@@ -155,12 +156,14 @@ typedef struct symbol_t {
 	const char *name;
 	int storage_class;
 	int object_type;	
+	TAILQ_ENTRY(symbol_t) entries;
 } symbol_t;
 
-typedef struct {
+typedef struct symtab_t {
 	link_t link;
 	int level;		/* nesting level */
 	list_t symbols;		/* list of symbols */
+	TAILQ_ENTRY(symtab_t) entries;
 } symtab_t;
 
 static unsigned long TokMap[BADTOK];
@@ -549,7 +552,12 @@ exit_scope(void)
 	tab = Cursymtab;
 	Cursymtab = (symtab_t *)list_prev(&identifiers, Cursymtab);
 	assert(Cursymtab != 0);
-	list_remove(&identifiers, tab);
+	// list_remove(&identifiers, tab);
+	if (((tab)->entries.tqe_next) != ((void *)0))
+		(tab)->entries.tqe_next->entries.tqe_prev = (tab)->entries.tqe_prev;
+	else
+		(&(&identifiers)->lhead)->tqh_last = (tab)->entries.tqe_prev;
+	*(tab)->entries.tqe_prev = (tab)->entries.tqe_next;
 }
 
 static void
